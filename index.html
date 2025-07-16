@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terapia de Vitamina C</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/220cbae15d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">Vital<span>Terapias</span> LG</div>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#beneficios">Beneficios</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Terapia de Vitamina C</h1>
+                <h2>Bienestar y energía a través de la nutrición intravenosa</h2>
+                <p>Una alternativa natural para fortalecer tu sistema inmunológico, combatir el cansancio y mejorar tu calidad de vida.</p>
+                <a href="#contacto" class="btn">Agendar cita</a>
+            </div>
+            <div class="hero-image">
+                <img src="img/imagen.jpg" alt="Terapia de Vitamina C">
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="beneficios">
+        <h2>Beneficios de la Vitamina C Intravenosa</h2>
+        <div class="beneficios-grid">
+            <div class="beneficio-card">
+                <i class="fas fa-shield-virus"></i>
+                <h3>Refuerza el sistema inmune</h3>
+                <p>Ayuda a prevenir enfermedades e infecciones.</p>
+            </div>
+            <div class="beneficio-card">
+                <i class="fas fa-battery-three-quarters"></i>
+                <h3>Aumenta la energía</h3>
+                <p>Reduce la fatiga y mejora el rendimiento físico.</p>
+            </div>
+            <div class="beneficio-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Antioxidante potente</h3>
+                <p>Protege las células del daño oxidativo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+        <h2>Contáctanos</h2>
+        <p>Agenda tu cita o solicita más información:</p>
+        <div class="contact-links">
+            <a href="https://wa.me/593997705273" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="mailto:leninisrael15@gmail.com" title="Correo electrónico">
+                <i class="fas fa-envelope"></i> Correo
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 VitalTerapias - Todos los derechos reservados</p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
