@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terapia de Vitamina C</title>
+    <title>Terapia de Vitamina C | VitalTerapias LG</title>
+    
+    <link rel="icon" href="img/icono.png" type="image/png">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22 width=%2232%22 height=%2232%22><text y=%2226%22 font-size=%2226%22>🍊</text></svg>">
+
     <link rel="stylesheet" href="estilos.css">
-    <link rel="icon" href="img/icono.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/220cbae15d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -13,13 +17,13 @@
 <header>
     <nav class="navbar">
         <div class="logo">Vital<span>Terapias</span> LG</div>
-        <button class="menu-toggle" onclick="toggleMenu()">
+        <button class="menu-toggle" aria-label="Abrir menú" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </button>
         <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#beneficios">Beneficios</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#inicio" onclick="toggleMenu()">Inicio</a></li>
+            <li><a href="#beneficios" onclick="toggleMenu()">Beneficios</a></li>
+            <li><a href="#contacto" onclick="toggleMenu()">Contacto</a></li>
         </ul>
     </nav>
 </header>
@@ -31,57 +35,81 @@
                 <h1>Terapia de Vitamina C</h1>
                 <h2>Bienestar y energía a través de la nutrición intravenosa</h2>
                 <p>Una alternativa natural para fortalecer tu sistema inmunológico, combatir el cansancio y mejorar tu calidad de vida.</p>
-                <a href="#contacto" class="btn">Agendar cita</a>
+                <a href="#contacto" class="btn"><i class="fas fa-calendar-alt"></i> Agendar cita</a>
             </div>
             <div class="hero-image">
-                <img src="img/imagen.jpg" alt="Terapia de Vitamina C">
+                <img src="img/imagen.jpg" alt="Terapia de Vitamina C en VitalTerapias">
             </div>
         </div>
     </section>
 
-    <section id="beneficios" class="beneficios">
+    <section id="beneficios" class="beneficios reveal">
         <h2>Beneficios de la Vitamina C Intravenosa</h2>
         <div class="beneficios-grid">
             <div class="beneficio-card">
                 <i class="fas fa-shield-virus"></i>
                 <h3>Refuerza el sistema inmune</h3>
-                <p>Ayuda a prevenir enfermedades e infecciones.</p>
+                <p>Ayuda a prevenir enfermedades, virus e infecciones estacionales.</p>
             </div>
             <div class="beneficio-card">
                 <i class="fas fa-battery-three-quarters"></i>
                 <h3>Aumenta la energía</h3>
-                <p>Reduce la fatiga y mejora el rendimiento físico.</p>
+                <p>Reduce la fatiga crónica y mejora notablemente el rendimiento físico.</p>
             </div>
             <div class="beneficio-card">
-                <i class="fas fa-heartbeat"></i>
-                <h3>Antioxidante potente</h3>
-                <p>Protege las células del daño oxidativo.</p>
+                <i class="fas fa-sparkles"></i> <h3>Antioxidante potente</h3>
+                <p>Protege las células del daño oxidativo y retrasa el envejecimiento celular.</p>
             </div>
         </div>
     </section>
 
-    <section id="contacto" class="contacto">
+    <section id="contacto" class="contacto reveal">
         <h2>Contáctanos</h2>
-        <p>Agenda tu cita o solicita más información:</p>
+        <p>Agenda tu cita o solicita más información de manera inmediata:</p>
         <div class="contact-links">
-            <a href="https://wa.me/593997705273" target="_blank" title="WhatsApp">
+            <a href="https://wa.me/593997705273?text=Hola,%20deseo%20agendar%20una%20cita%20para%20la%20Terapia%20de%20Vitamina%20C" target="_blank" class="btn-whatsapp" title="WhatsApp">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
-            <a href="mailto:leninisrael15@gmail.com" title="Correo electrónico">
+            <a href="mailto:leninisrael15@gmail.com" class="btn-email" title="Correo electrónico">
                 <i class="fas fa-envelope"></i> Correo
             </a>
         </div>
     </section>
 </main>
 
+<a href="https://wa.me/593997705273?text=Hola,%20deseo%20más%20información." class="whatsapp-floating" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
 <footer>
-    <p>&copy; 2025 VitalTerapias - Todos los derechos reservados</p>
+    <p>&copy; <span id="year"></span> VitalTerapias LG - Todos los derechos reservados</p>
 </footer>
 
 <script>
+    // Control del menú móvil
     function toggleMenu() {
-        document.querySelector('.nav-links').classList.toggle('active');
+        // Solo actúa si el botón de menú es visible (pantallas chicas)
+        if (window.innerWidth <= 768) {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
     }
+
+    // JS Comercial: Efecto Scroll Reveal (Aparición suave de secciones)
+    window.addEventListener('scroll', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => {
+            const windowHeight = window.innerHeight;
+            const elementTop = reveal.getBoundingClientRect().top;
+            const elementVisible = 150; // Distancia para activarse
+
+            if (elementTop < windowHeight - elementVisible) {
+                reveal.classList.add('active');
+            }
+        });
+    });
+
+    // Actualizador automático de año en el footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>
