@@ -1,0 +1,59 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Terapia de Vitamina C Intravenosa | VitalTerapias LG',
+  description = 'Fortalece tu sistema inmunológico y mejora tu calidad de vida con terapia de Vitamina C intravenosa. Consulta con nuestros profesionales en VitalTerapias LG.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="VitalTerapias LG" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/img/imagen.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2226%22 font-size=%2226%22>🍊</text></svg>" />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+
+    <!-- Global Scroll Reveal Script -->
+    <script>
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-stagger').forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

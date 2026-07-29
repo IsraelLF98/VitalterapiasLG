@@ -1,0 +1,308 @@
+---
+const testimonials = [
+  {
+    name: 'María Fernanda L.',
+    initials: 'MF',
+    role: 'Paciente desde 2024',
+    text: 'Después de 3 sesiones de Vitamina C intravenosa, mi energía mejoró increíblemente. Ya no siento esa fatiga constante que me impedía disfrutar mi día a día. ¡Totalmente recomendado!',
+    rating: 5,
+  },
+  {
+    name: 'Carlos Andrés R.',
+    initials: 'CA',
+    role: 'Paciente desde 2025',
+    text: 'Como deportista, la recuperación es fundamental. Desde que empecé las terapias de Vitamina C, mis tiempos de recuperación se redujeron notablemente y mi rendimiento ha mejorado.',
+    rating: 5,
+  },
+  {
+    name: 'Ana Patricia G.',
+    initials: 'AP',
+    role: 'Paciente desde 2024',
+    text: 'Mi piel luce más radiante y saludable. Noté los cambios desde la segunda sesión. El equipo de VitalTerapias es muy profesional y te hacen sentir segura durante todo el proceso.',
+    rating: 5,
+  },
+  {
+    name: 'Roberto Miguel S.',
+    initials: 'RM',
+    role: 'Paciente desde 2025',
+    text: 'Tenía el sistema inmune debilitado y me enfermaba constantemente. Luego de iniciar las terapias, he notado una mejora significativa. No me he enfermado en meses.',
+    rating: 5,
+  },
+];
+---
+
+<section id="testimonios" class="section section-cream">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Testimonios
+      </span>
+      <h2>Lo que dicen nuestros <span class="gradient-text">pacientes</span></h2>
+      <p>Experiencias reales de personas que transformaron su bienestar</p>
+    </div>
+
+    <div class="testimonials__slider" id="testimonials-slider">
+      <div class="testimonials__track" id="testimonials-track">
+        {testimonials.map((testimonial) => (
+          <div class="testimonial-card">
+            <div class="testimonial-card__header">
+              <div class="testimonial-card__avatar">
+                <span>{testimonial.initials}</span>
+              </div>
+              <div class="testimonial-card__info">
+                <h4 class="testimonial-card__name">{testimonial.name}</h4>
+                <span class="testimonial-card__role">{testimonial.role}</span>
+              </div>
+              <div class="testimonial-card__stars">
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="var(--color-primary)" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                ))}
+              </div>
+            </div>
+            <blockquote class="testimonial-card__text">
+              <svg class="testimonial-card__quote-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="rgba(245, 158, 11, 0.1)"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+              {testimonial.text}
+            </blockquote>
+          </div>
+        ))}
+      </div>
+
+      <div class="testimonials__controls">
+        <button class="testimonials__btn" id="prev-btn" aria-label="Anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="testimonials__dots" id="testimonials-dots">
+          {testimonials.map((_, i) => (
+            <button class={`testimonials__dot ${i === 0 ? 'active' : ''}`} data-index={i} aria-label={`Ir a testimonio ${i + 1}`}></button>
+          ))}
+        </div>
+        <button class="testimonials__btn" id="next-btn" aria-label="Siguiente">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('testimonials-track') as HTMLElement;
+  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+  const dots = document.querySelectorAll('.testimonials__dot');
+  const cards = track?.querySelectorAll('.testimonial-card');
+
+  let currentIndex = 0;
+  let cardsPerView = getCardsPerView();
+
+  function getCardsPerView() {
+    if (window.innerWidth >= 1024) return 2;
+    return 1;
+  }
+
+  function getMaxIndex() {
+    return Math.max(0, (cards?.length || 0) - cardsPerView);
+  }
+
+  function updateSlider() {
+    if (!track || !cards?.length) return;
+    const card = cards[0] as HTMLElement;
+    const gap = 24;
+    const cardWidth = card.offsetWidth + gap;
+    track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    currentIndex = Math.max(0, currentIndex - 1);
+    updateSlider();
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    currentIndex = Math.min(getMaxIndex(), currentIndex + 1);
+    updateSlider();
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.getAttribute('data-index') || '0');
+      currentIndex = Math.min(index, getMaxIndex());
+      updateSlider();
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    cardsPerView = getCardsPerView();
+    currentIndex = Math.min(currentIndex, getMaxIndex());
+    updateSlider();
+  });
+
+  // Auto-play
+  let autoPlay = setInterval(() => {
+    if (currentIndex >= getMaxIndex()) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+    updateSlider();
+  }, 5000);
+
+  // Pause on hover
+  track?.parentElement?.addEventListener('mouseenter', () => clearInterval(autoPlay));
+  track?.parentElement?.addEventListener('mouseleave', () => {
+    autoPlay = setInterval(() => {
+      if (currentIndex >= getMaxIndex()) {
+        currentIndex = 0;
+      } else {
+        currentIndex++;
+      }
+      updateSlider();
+    }, 5000);
+  });
+</script>
+
+<style>
+  .testimonials__slider {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .testimonials__track {
+    display: flex;
+    gap: var(--space-xl);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .testimonial-card {
+    flex: 0 0 calc(50% - var(--space-xl) / 2);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .testimonial-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .testimonial-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .testimonial-card__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__info {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .testimonial-card__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gray-900);
+  }
+
+  .testimonial-card__role {
+    font-size: 0.8rem;
+    color: var(--color-gray-400);
+  }
+
+  .testimonial-card__stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .testimonial-card__text {
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--color-gray-600);
+    line-height: 1.8;
+    font-style: italic;
+    padding-top: var(--space-sm);
+  }
+
+  .testimonial-card__quote-icon {
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    opacity: 0.7;
+  }
+
+  /* Controls */
+  .testimonials__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  .testimonials__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-600);
+    transition: all var(--transition-base);
+  }
+
+  .testimonials__btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+    transform: scale(1.1);
+  }
+
+  .testimonials__dots {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .testimonials__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-gray-300);
+    transition: all var(--transition-base);
+    padding: 0;
+  }
+
+  .testimonials__dot.active {
+    background: var(--color-primary);
+    transform: scale(1.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .testimonial-card {
+      flex: 0 0 100%;
+    }
+  }
+</style>

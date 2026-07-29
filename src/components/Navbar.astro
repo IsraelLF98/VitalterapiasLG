@@ -1,0 +1,237 @@
+---
+const navLinks = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Beneficios', href: '#beneficios' },
+  { label: 'Proceso', href: '#proceso' },
+  { label: 'Testimonios', href: '#testimonios' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<header class="navbar" id="navbar">
+  <div class="navbar__container container">
+    <a href="#inicio" class="navbar__logo">
+      Vital<span>Terapias</span> LG
+    </a>
+
+    <button class="navbar__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+    </button>
+
+    <nav class="navbar__nav" id="navbar-nav">
+      <ul class="navbar__links">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="navbar__link">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        href="https://wa.me/593997705273?text=Hola,%20deseo%20agendar%20una%20cita%20para%20la%20Terapia%20de%20Vitamina%20C"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary navbar__cta"
+      >
+        Agendar Cita
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Hamburger toggle
+  const toggle = document.getElementById('menu-toggle') as HTMLButtonElement;
+  const nav = document.getElementById('navbar-nav') as HTMLElement;
+  const navbar = document.getElementById('navbar') as HTMLElement;
+  const links = document.querySelectorAll('.navbar__link');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.classList.toggle('active');
+    nav.classList.toggle('open');
+  });
+
+  // Close menu on link click
+  links.forEach((link) => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('open');
+    });
+  });
+
+  // Navbar scroll effect
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: all var(--transition-base);
+    background: transparent;
+  }
+
+  .navbar.scrolled {
+    background: rgba(15, 13, 10, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.6rem 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .navbar__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar__logo {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    z-index: 10;
+  }
+
+  .navbar__logo span {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Nav */
+  .navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .navbar__links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .navbar__link {
+    display: block;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .navbar__link:hover {
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .navbar__cta {
+    margin-left: var(--space-sm);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  /* Hamburger */
+  .navbar__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .navbar__toggle-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-white);
+    border-radius: 2px;
+    transition: all var(--transition-base);
+    transform-origin: center;
+  }
+
+  .navbar__toggle.active .navbar__toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .navbar__toggle.active .navbar__toggle-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .navbar__toggle.active .navbar__toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .navbar__toggle {
+      display: flex;
+    }
+
+    .navbar__nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: min(320px, 85vw);
+      height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-xl);
+      background: rgba(15, 13, 10, 0.97);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      transition: right var(--transition-base);
+      padding: var(--space-2xl);
+    }
+
+    .navbar__nav.open {
+      right: 0;
+    }
+
+    .navbar__links {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .navbar__link {
+      font-size: 1.15rem;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar__cta {
+      margin-left: 0;
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+</style>

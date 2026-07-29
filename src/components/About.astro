@@ -1,0 +1,231 @@
+---
+
+---
+
+<section id="nosotros" class="section section-cream">
+  <div class="container">
+    <div class="about reveal">
+      <div class="about__visual reveal-left">
+        <div class="about__icon-wrapper">
+          <div class="about__icon-bg"></div>
+          <svg class="about__icon" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f59e0b" />
+                <stop offset="100%" style="stop-color:#f97316" />
+              </linearGradient>
+            </defs>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="about__features">
+          <div class="about__feature glass-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Vía intravenosa directa</span>
+          </div>
+          <div class="about__feature glass-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Máxima biodisponibilidad</span>
+          </div>
+          <div class="about__feature glass-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Sin efectos secundarios</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__content reveal-right">
+        <span class="section-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          ¿Qué es?
+        </span>
+        <h2 class="about__title">Terapia de Vitamina C <span class="gradient-text">Intravenosa</span></h2>
+        <p class="about__description">
+          La terapia de Vitamina C intravenosa es un tratamiento médico que consiste en la administración
+          de altas dosis de ácido ascórbico directamente en el torrente sanguíneo, logrando una
+          <strong>absorción del 100%</strong> a diferencia de la vía oral que solo alcanza un 10-20%.
+        </p>
+        <p class="about__description">
+          Este método permite alcanzar concentraciones plasmáticas que no serían posibles mediante suplementos
+          orales, potenciando los efectos antioxidantes, antiinflamatorios e inmunoestimuladores de la
+          vitamina C de forma segura y efectiva.
+        </p>
+        <div class="about__stats-grid">
+          <div class="about__stat-card">
+            <span class="about__stat-number gradient-text">10x</span>
+            <span class="about__stat-text">Más efectiva que la vía oral</span>
+          </div>
+          <div class="about__stat-card">
+            <span class="about__stat-number gradient-text">100%</span>
+            <span class="about__stat-text">Absorción garantizada</span>
+          </div>
+          <div class="about__stat-card">
+            <span class="about__stat-number gradient-text">0</span>
+            <span class="about__stat-text">Efectos secundarios</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-4xl);
+    align-items: center;
+  }
+
+  /* Visual side */
+  .about__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .about__icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+  }
+
+  .about__icon-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(249, 115, 22, 0.08));
+    border: 2px solid rgba(245, 158, 11, 0.15);
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  .about__icon {
+    position: relative;
+    z-index: 1;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .about__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .about__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: transform var(--transition-base);
+  }
+
+  .about__feature:hover {
+    transform: translateX(8px);
+  }
+
+  /* Content side */
+  .about__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about__title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: var(--space-xl);
+    line-height: 1.2;
+  }
+
+  .about__description {
+    font-size: 1.05rem;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-lg);
+    line-height: 1.8;
+  }
+
+  .about__description strong {
+    color: var(--color-gray-900);
+  }
+
+  .about__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .about__stat-card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+  }
+
+  .about__stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .about__stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.25rem;
+  }
+
+  .about__stat-text {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .about {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .about__visual {
+      order: 2;
+    }
+
+    .about__content {
+      text-align: center;
+      align-items: center;
+    }
+
+    .about__features {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about__stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about__icon-wrapper {
+      width: 150px;
+      height: 150px;
+    }
+
+    .about__icon {
+      width: 60px;
+      height: 60px;
+    }
+  }
+</style>

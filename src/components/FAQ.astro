@@ -1,0 +1,157 @@
+---
+const faqs = [
+  {
+    question: '¿Qué es la terapia de Vitamina C intravenosa?',
+    answer: 'Es un tratamiento médico que consiste en la administración de altas dosis de Vitamina C (ácido ascórbico) directamente en el torrente sanguíneo a través de una vía intravenosa, logrando una absorción del 100% que no es posible por vía oral.',
+  },
+  {
+    question: '¿Es seguro el tratamiento?',
+    answer: 'Sí, la terapia de Vitamina C intravenosa es completamente segura cuando es administrada por profesionales certificados. La Vitamina C es una sustancia natural que el cuerpo utiliza y el exceso se elimina de forma natural a través de los riñones.',
+  },
+  {
+    question: '¿Cuánto dura cada sesión?',
+    answer: 'Cada sesión tiene una duración aproximada de 30 a 45 minutos, dependiendo de la dosis prescrita. Durante este tiempo puedes relajarte cómodamente mientras el tratamiento se administra de forma gradual.',
+  },
+  {
+    question: '¿Cada cuánto tiempo debo realizar el tratamiento?',
+    answer: 'La frecuencia varía según las necesidades de cada paciente. Generalmente se recomienda una sesión semanal durante las primeras 4-6 semanas, y luego sesiones de mantenimiento cada 2-4 semanas según la evaluación médica.',
+  },
+  {
+    question: '¿Quiénes pueden recibir este tratamiento?',
+    answer: 'La terapia es apta para la mayoría de adultos que buscan fortalecer su sistema inmune, combatir la fatiga, mejorar la piel o acelerar su recuperación. Sin embargo, se requiere una evaluación previa para personas con ciertas condiciones como insuficiencia renal o deficiencia de G6PD.',
+  },
+  {
+    question: '¿Se pueden ver resultados desde la primera sesión?',
+    answer: 'Muchos pacientes reportan sentirse con más energía y vitalidad desde la primera sesión. Sin embargo, los beneficios completos se aprecian con un tratamiento continuado, generalmente después de 3-4 sesiones.',
+  },
+];
+---
+
+<section id="faq" class="section section-dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        Preguntas Frecuentes
+      </span>
+      <h2>Resolvemos tus <span class="gradient-text">dudas</span></h2>
+      <p>Encuentra respuestas a las preguntas más comunes sobre la terapia</p>
+    </div>
+
+    <div class="faq__list reveal-stagger">
+      {faqs.map((faq, index) => (
+        <details class="faq__item" id={`faq-${index}`}>
+          <summary class="faq__question">
+            <span class="faq__question-text">{faq.question}</span>
+            <span class="faq__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </span>
+          </summary>
+          <div class="faq__answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__list {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .faq__item {
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .faq__item:hover {
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .faq__item[open] {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(245, 158, 11, 0.25);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-xl) var(--space-xl);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: all var(--transition-fast);
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question::marker {
+    display: none;
+    content: '';
+  }
+
+  .faq__question-text {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .faq__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--color-primary-light);
+    flex-shrink: 0;
+    transition: all var(--transition-base);
+  }
+
+  .faq__item[open] .faq__icon {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    padding: 0 var(--space-xl) var(--space-xl);
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  .faq__answer p {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .faq__question {
+      padding: var(--space-lg);
+    }
+
+    .faq__answer {
+      padding: 0 var(--space-lg) var(--space-lg);
+    }
+
+    .faq__question-text {
+      font-size: 0.95rem;
+    }
+  }
+</style>
