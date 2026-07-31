@@ -1,4 +1,7 @@
 ---
+// Arreglo de enlaces del menú: cada elemento tiene el texto visible (label)
+// y el ancla a la sección correspondiente (href, ej: #inicio).
+// Se recorre con .map() más abajo para generar los <a> del menú sin repetir código.
 const navLinks = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Nosotros', href: '#nosotros' },
@@ -12,10 +15,13 @@ const navLinks = [
 
 <header class="navbar" id="navbar">
   <div class="navbar__container container">
+    <!-- Logo del sitio: "Vital" en blanco y "Terapias LG" con degradado (ver CSS). -->
     <a href="#inicio" class="navbar__logo">
       Vital<span>Terapias</span> LG
     </a>
 
+    <!-- Botón de menú hamburguesa: oculto en escritorio (display: none en CSS)
+         y visible solo en móvil. Las 3 barras se convierten en una X con .active. -->
     <button class="navbar__toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
       <span class="navbar__toggle-bar"></span>
       <span class="navbar__toggle-bar"></span>
@@ -23,6 +29,7 @@ const navLinks = [
     </button>
 
     <nav class="navbar__nav" id="navbar-nav">
+      <!-- Los enlaces del menú se generan recorriendo navLinks con .map(). -->
       <ul class="navbar__links">
         {navLinks.map((link) => (
           <li>
@@ -32,6 +39,7 @@ const navLinks = [
           </li>
         ))}
       </ul>
+      <!-- Botón de llamada a la acción: abre WhatsApp con un mensaje precargado. -->
       <a
         href="https://wa.me/593997705273?text=Hola,%20deseo%20agendar%20una%20cita%20para%20la%20Terapia%20de%20Vitamina%20C"
         target="_blank"
@@ -45,12 +53,14 @@ const navLinks = [
 </header>
 
 <script>
-  // Hamburger toggle
+  // Referencias a los elementos del DOM que el script necesita manipular.
   const toggle = document.getElementById('menu-toggle') as HTMLButtonElement;
   const nav = document.getElementById('navbar-nav') as HTMLElement;
   const navbar = document.getElementById('navbar') as HTMLElement;
   const links = document.querySelectorAll('.navbar__link');
 
+  // Al hacer clic en el botón hamburguesa: alterna el estado aria-expanded
+  // (accesibilidad) y las clases 'active' (barras → X) y 'open' (panel móvil visible).
   toggle?.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!expanded));
@@ -58,7 +68,9 @@ const navLinks = [
     nav.classList.toggle('open');
   });
 
-  // Close menu on link click
+  // Cerrar el menú al hacer clic en un enlace
+  // Recorre todos los enlaces y, al pulsar uno, revierte el estado
+  // del botón y oculta el panel móvil para que no quede abierto.
   links.forEach((link) => {
     link.addEventListener('click', () => {
       toggle.classList.remove('active');
@@ -67,7 +79,9 @@ const navLinks = [
     });
   });
 
-  // Navbar scroll effect
+  // Efecto de la barra de navegación al hacer scroll
+  // Si scrollY supera 60px, agrega la clase 'scrolled' (fondo oscuro
+  // con blur); si vuelve arriba, la elimina para dejar la navbar transparente.
   let lastScroll = 0;
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
@@ -83,6 +97,8 @@ const navLinks = [
 </script>
 
 <style>
+  /* Barra de navegación: fija en la parte superior (siempre visible al
+     hacer scroll), transparente por defecto y por encima del resto (z-index). */
   .navbar {
     position: fixed;
     top: 0;
@@ -94,6 +110,9 @@ const navLinks = [
     background: transparent;
   }
 
+  /* Estado .scrolled: se activa con JS al bajar más de 60px.
+     Da fondo oscuro semitransparente con desenfoque (blur) para
+     que el menú se lea bien sobre el contenido. */
   .navbar.scrolled {
     background: rgba(15, 13, 10, 0.85);
     backdrop-filter: blur(20px);
@@ -109,6 +128,8 @@ const navLinks = [
     justify-content: space-between;
   }
 
+  /* Logo: el span "Terapias" lleva un degradado aplicado solo al texto
+     (background-clip: text) para crear el efecto de letras en dos tonos. */
   .navbar__logo {
     font-family: var(--font-heading);
     font-size: 1.6rem;
@@ -125,7 +146,7 @@ const navLinks = [
     background-clip: text;
   }
 
-  /* Nav */
+  /* Navegación */
   .navbar__nav {
     display: flex;
     align-items: center;
@@ -138,6 +159,8 @@ const navLinks = [
     gap: var(--space-xs);
   }
 
+  /* Enlaces del menú: texto blanco semitransparente; al pasar el cursor
+     (hover) se aclaran y ganan un fondo redondeado sutil. */
   .navbar__link {
     display: block;
     padding: 0.5rem 0.85rem;
@@ -159,7 +182,9 @@ const navLinks = [
     font-size: 0.9rem;
   }
 
-  /* Hamburger */
+  /* Menú hamburguesa: oculto por defecto (solo aparece en móvil).
+     Con .active, cada barra se desplaza y rota para dibujar una X:
+     la 1ª y la 3ª giran 45° en sentidos opuestos y la 2ª se desvanece. */
   .navbar__toggle {
     display: none;
     flex-direction: column;
@@ -191,7 +216,9 @@ const navLinks = [
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Responsive */
+  /* Responsivo (móvil y tablet): el menú pasa a ser un panel lateral fijo
+     que entra desde la derecha (right: 0 con .open). Se muestra el botón
+     hamburguesa y los enlaces se apilan en columna. */
   @media (max-width: 1024px) {
     .navbar__toggle {
       display: flex;

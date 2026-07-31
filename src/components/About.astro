@@ -2,12 +2,16 @@
 
 ---
 
+<!-- Sección "¿Qué es?" de la terapia. Las clases reveal / reveal-left / reveal-right activan animaciones de aparición al hacer scroll (definidas en estilos globales) -->
 <section id="nosotros" class="section section-cream">
   <div class="container">
     <div class="about reveal">
+      <!-- Lado visual: icono de escudo con degradado + lista de características de la terapia -->
       <div class="about__visual reveal-left">
         <div class="about__icon-wrapper">
+          <!-- Círculo de fondo con degradado y animación de pulso -->
           <div class="about__icon-bg"></div>
+          <!-- Icono de escudo (protección) pintado con un degradado naranja definido en <defs> -->
           <svg class="about__icon" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <defs>
               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -18,8 +22,10 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
         </div>
+        <!-- Características destacadas de la terapia (3 elementos) -->
         <div class="about__features">
           <div class="about__feature glass-light">
+            <!-- Check verde que acompaña a cada característica -->
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>Vía intravenosa directa</span>
           </div>
@@ -34,8 +40,10 @@
         </div>
       </div>
 
+      <!-- Lado del contenido: badge, título, descripción y 3 tarjetas de estadísticas -->
       <div class="about__content reveal-right">
         <span class="section-badge">
+          <!-- Badge decorativo con icono de info, marca el inicio de la sección -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
           ¿Qué es?
         </span>
@@ -43,13 +51,14 @@
         <p class="about__description">
           La terapia de Vitamina C intravenosa es un tratamiento médico que consiste en la administración
           de altas dosis de ácido ascórbico directamente en el torrente sanguíneo, logrando una
-          <strong>absorción del 100%</strong> a diferencia de la vía oral que solo alcanza un 10-20%.
+          <strong> absorción del 100%</strong> a diferencia de la vía oral que solo alcanza un 10-20%.
         </p>
         <p class="about__description">
           Este método permite alcanzar concentraciones plasmáticas que no serían posibles mediante suplementos
           orales, potenciando los efectos antioxidantes, antiinflamatorios e inmunoestimuladores de la
           vitamina C de forma segura y efectiva.
         </p>
+        <!-- 3 tarjetas de estadísticas: 10x más efectiva, 100% absorción, 0 efectos secundarios -->
         <div class="about__stats-grid">
           <div class="about__stat-card">
             <span class="about__stat-number gradient-text">10x</span>
@@ -70,6 +79,7 @@
 </section>
 
 <style>
+  /* Grid de 2 columnas: visual (izquierda) y contenido (derecha) */
   .about {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -77,7 +87,7 @@
     align-items: center;
   }
 
-  /* Visual side */
+  /* Lado visual */
   .about__visual {
     display: flex;
     flex-direction: column;
@@ -94,6 +104,7 @@
     height: 200px;
   }
 
+  /* Círculo de fondo: degradado naranja suave, borde sutil y pulso animado */
   .about__icon-bg {
     position: absolute;
     width: 100%;
@@ -104,6 +115,7 @@
     animation: glow-pulse 4s ease-in-out infinite;
   }
 
+  /* Icono flotando suavemente sobre el círculo (animación "float" global) */
   .about__icon {
     position: relative;
     z-index: 1;
@@ -118,6 +130,7 @@
     max-width: 320px;
   }
 
+  /* Tarjetas de características con efecto "glass" (vidrio esmerilado) */
   .about__feature {
     display: flex;
     align-items: center;
@@ -129,11 +142,12 @@
     transition: transform var(--transition-base);
   }
 
+  /* Al pasar el cursor, la tarjeta se desliza ligeramente a la derecha */
   .about__feature:hover {
     transform: translateX(8px);
   }
 
-  /* Content side */
+  /* Lado del contenido */
   .about__content {
     display: flex;
     flex-direction: column;
@@ -157,6 +171,7 @@
     color: var(--color-gray-900);
   }
 
+  /* Grid de 3 columnas para las tarjetas de estadísticas (10x / 100% / 0) */
   .about__stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -164,6 +179,7 @@
     margin-top: var(--space-xl);
   }
 
+  /* Tarjeta de estadística: fondo blanco y sombra */
   .about__stat-card {
     text-align: center;
     padding: var(--space-lg);
@@ -173,6 +189,7 @@
     transition: all var(--transition-base);
   }
 
+  /* Hover: la tarjeta se eleva y la sombra se intensifica */
   .about__stat-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
@@ -192,7 +209,8 @@
     font-weight: 500;
   }
 
-  /* Responsive */
+  /* Responsivo */
+  /* En tablets: 1 sola columna, el visual pasa debajo y el contenido se centra */
   @media (max-width: 1024px) {
     .about {
       grid-template-columns: 1fr;
@@ -213,6 +231,7 @@
     }
   }
 
+  /* En móviles: las estadísticas se apilan en 1 columna y el icono se reduce */
   @media (max-width: 768px) {
     .about__stats-grid {
       grid-template-columns: 1fr;

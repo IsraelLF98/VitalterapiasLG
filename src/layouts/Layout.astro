@@ -1,9 +1,18 @@
 ---
+// FRONTMATTER: la parte entre los guiones --- es código JavaScript/TypeScript
+// que se ejecuta al construir la página (en el servidor). Aquí se definen las
+// "props" (propiedades) que este layout recibe de las páginas que lo usan.
+// title y description son opcionales (el "?" lo indica), y si la página hija
+// no las envía, se usan los valores por defecto definidos más abajo.
+
 interface Props {
   title?: string;
   description?: string;
 }
 
+// Astro.props contiene los valores que la página hija le pasó al layout.
+// Con la desestructuración asignamos un valor por defecto a cada prop:
+// si la página no define su propio title o description, se usan estos.
 const {
   title = 'Terapia de Vitamina C Intravenosa | VitalTerapias LG',
   description = 'Fortalece tu sistema inmunológico y mejora tu calidad de vida con terapia de Vitamina C intravenosa. Consulta con nuestros profesionales en VitalTerapias LG.',
@@ -11,25 +20,38 @@ const {
 ---
 
 <!doctype html>
+<!-- lang="es" le indica al navegador y a los buscadores que el contenido está
+     en español. Es importante para SEO porque Google usa este atributo para
+     mostrar el idioma correcto y sugerir traducciones a los usuarios. -->
 <html lang="es">
   <head>
+    <!-- Codificación de caracteres: permite usar tildes, ñ y emojis correctamente -->
     <meta charset="UTF-8" />
+    <!-- viewport: ajusta el ancho de la página al dispositivo, imprescindible para que el sitio se vea bien en móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- description: breve resumen de la página que Google muestra en los resultados de búsqueda -->
     <meta name="description" content={description} />
+    <!-- author: nombre del autor/creador del sitio web -->
     <meta name="author" content="VitalTerapias LG" />
 
+    <!-- keywords: palabras clave relacionadas con el contenido, útiles para que los buscadores entiendan de qué trata la página -->
     <meta name="keywords" content="Vitamina C intravenosa, suero vitamina C, terapia intravenosa, sueroterapia, fortalecer sistema inmune, antienvejecimiento, salud, bienestar" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph (para compartir en redes sociales) -->
+    <!-- Estas etiquetas controlan cómo se ve el sitio al compartirse en Facebook,
+         WhatsApp, X, etc.: título, descripción, tipo de contenido e imagen de vista previa -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/img/imagen.jpg" />
 
-    <!-- Favicon -->
+    <!-- Ícono de la pestaña del navegador -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2226%22 font-size=%2226%22>🍊</text></svg>" />
 
-    <!-- Schema.org Structured Data (Google Rich Snippets) -->
+    <!-- Datos estructurados Schema.org (resultados enriquecidos en Google) -->
+    <!-- Este JSON-LD le entrega a Google información estructurada sobre la clínica
+         (nombre, teléfono, horarios, especialidad...). Con ella Google puede mostrar
+         "rich snippets" (fichas enriquecidas) en los resultados de búsqueda -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -48,23 +70,39 @@ const {
     <title>{title}</title>
   </head>
   <body>
+    <!-- <slot /> es el "hueco" donde se inserta el contenido de cada página que
+         usa este layout. El layout define la estructura común (head, meta tags,
+         scripts, estilos) y el slot muestra el contenido específico de cada página -->
     <slot />
 
-    <!-- Global Scroll Reveal Script -->
+    <!-- Script global de animaciones al hacer scroll -->
     <script>
+      // Opciones del observador:
+      // - threshold: 0.1 → la animación se dispara cuando al menos el 10% del elemento es visible
+      // - rootMargin: reduce la zona de detección en 50px por abajo, para que la
+      //   animación ocurra un poco antes de que el elemento llegue al borde de la pantalla
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px',
       };
 
+      // IntersectionObserver detecta de forma eficiente cuándo un elemento
+      // entra o sale de la zona visible del navegador (sin usar eventos de scroll)
       const observer = new IntersectionObserver((entries) => {
+        // Se ejecuta por cada elemento observado cuando cambia su visibilidad
         entries.forEach((entry) => {
+          // Si el elemento está entrando en la pantalla...
           if (entry.isIntersecting) {
+            // ...le agregamos la clase .visible, que dispara la animación CSS
+            // (definida en global.css) y lo hace aparecer suavemente
             entry.target.classList.add('visible');
           }
         });
       }, observerOptions);
 
+      // Buscamos todos los elementos con las clases de animación y los
+      // ponemos bajo observación: .reveal (fade normal), .reveal-left (entra
+      // desde la izquierda), .reveal-right (desde la derecha) y .reveal-stagger (efecto escalonado)
       document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-stagger').forEach((el) => {
         observer.observe(el);
       });
@@ -72,6 +110,10 @@ const {
   </body>
 </html>
 
+<!-- is:global hace que este CSS se aplique a TODA la página (a todos los
+     componentes renderizados en ella), y no solo a este componente.
+     Sin is:global, Astro "encapsularía" los estilos con atributos de scope
+     y global.css solo afectaría al propio layout -->
 <style is:global>
   @import '../styles/global.css';
 </style>

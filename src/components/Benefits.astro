@@ -1,4 +1,8 @@
 ---
+// Arreglo de 6 beneficios. Cada objeto tiene:
+// - icon: el SVG como string (se inserta luego con Fragment set:html)
+// - title: título del beneficio
+// - description: descripción del beneficio
 const benefits = [
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
@@ -33,6 +37,7 @@ const benefits = [
 ];
 ---
 
+<!-- Encabezado de la sección: badge + título + subtítulo -->
 <section id="beneficios" class="section section-dark">
   <div class="container">
     <div class="section-header reveal">
@@ -44,6 +49,8 @@ const benefits = [
       <p>Descubre cómo esta terapia puede transformar tu bienestar y calidad de vida</p>
     </div>
 
+    <!-- Cuadrícula de tarjetas de beneficios generada con .map() -->
+    <!-- Cada iteración crea una tarjeta; Fragment set:html inyecta el SVG del icono como HTML real -->
     <div class="benefits__grid reveal-stagger">
       {benefits.map((benefit) => (
         <div class="benefit-card">
@@ -59,12 +66,14 @@ const benefits = [
 </section>
 
 <style>
+  /* Grid de 3 columnas para las tarjetas de beneficios */
   .benefits__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xl);
   }
 
+  /* Tarjeta: fondo oscuro translúcido, borde sutil y transición suave */
   .benefit-card {
     position: relative;
     padding: var(--space-2xl);
@@ -75,6 +84,7 @@ const benefits = [
     overflow: hidden;
   }
 
+  /* Pseudo-elemento: capa de gradiente naranja que aparece al hacer hover */
   .benefit-card::before {
     content: '';
     position: absolute;
@@ -85,16 +95,19 @@ const benefits = [
     transition: opacity var(--transition-base);
   }
 
+  /* Hover: la tarjeta se eleva (translateY), el borde se ilumina y gana sombra */
   .benefit-card:hover {
     transform: translateY(-8px);
     border-color: rgba(245, 158, 11, 0.2);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   }
 
+  /* Al hacer hover sobre la tarjeta se muestra el gradiente del ::before */
   .benefit-card:hover::before {
     opacity: 1;
   }
 
+  /* Contenedor del icono: caja con fondo degradado suave */
   .benefit-card__icon {
     position: relative;
     display: flex;
@@ -109,6 +122,7 @@ const benefits = [
     transition: all var(--transition-base);
   }
 
+  /* Hover del icono: fondo degradado sólido, color blanco, escala y brillo */
   .benefit-card:hover .benefit-card__icon {
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     color: var(--color-white);
@@ -131,7 +145,7 @@ const benefits = [
     position: relative;
   }
 
-  /* Responsive */
+  /* Responsivo: de 3 columnas a 2 (tablets) y a 1 (móviles) */
   @media (max-width: 1024px) {
     .benefits__grid {
       grid-template-columns: repeat(2, 1fr);

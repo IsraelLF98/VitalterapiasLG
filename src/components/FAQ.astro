@@ -1,4 +1,7 @@
 ---
+// Arreglo de preguntas frecuentes. Cada objeto tiene:
+// - question: la pregunta mostrada en el encabezado del acordeón
+// - answer: la respuesta que se despliega al abrir
 const faqs = [
   {
     question: '¿Qué es la terapia de Vitamina C intravenosa?',
@@ -38,15 +41,21 @@ const faqs = [
       <p>Encuentra respuestas a las preguntas más comunes sobre la terapia</p>
     </div>
 
+    <!-- Acordeón con la etiqueta nativa <details>/<summary> de HTML5:
+         el navegador se encarga de abrir/cerrar sin JavaScript.
+         Con el atributo [open] el navegador mantiene el acordeón abierto -->
     <div class="faq__list reveal-stagger">
       {faqs.map((faq, index) => (
         <details class="faq__item" id={`faq-${index}`}>
+          <!-- <summary> es el encabezado clicable; el contenido siguiente se oculta/muestra -->
           <summary class="faq__question">
             <span class="faq__question-text">{faq.question}</span>
+            <!-- Icono "+" que gira 45° al abrir, indicando que se puede cerrar -->
             <span class="faq__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </span>
           </summary>
+          <!-- Respuesta que se despliega al abrir el acordeón -->
           <div class="faq__answer">
             <p>{faq.answer}</p>
           </div>
@@ -65,6 +74,7 @@ const faqs = [
     gap: var(--space-md);
   }
 
+  /* Item del acordeón: tarjeta oscura translúcida */
   .faq__item {
     border-radius: var(--radius-lg);
     background: rgba(255, 255, 255, 0.04);
@@ -73,15 +83,18 @@ const faqs = [
     transition: all var(--transition-base);
   }
 
+  /* Al pasar el cursor, el borde se ilumina en naranja */
   .faq__item:hover {
     border-color: rgba(245, 158, 11, 0.2);
   }
 
+  /* Acordeón abierto: fondo y borde más visibles */
   .faq__item[open] {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(245, 158, 11, 0.25);
   }
 
+  /* Encabezado clicable: pregunta a la izquierda, icono "+" a la derecha */
   .faq__question {
     display: flex;
     align-items: center;
@@ -89,15 +102,18 @@ const faqs = [
     gap: var(--space-md);
     padding: var(--space-xl) var(--space-xl);
     cursor: pointer;
+    /* Oculta el triángulo/marker nativo que el navegador dibuja en <summary> */
     list-style: none;
     user-select: none;
     transition: all var(--transition-fast);
   }
 
+  /* Para WebKit/Safari también se oculta el marker nativo del <summary> */
   .faq__question::-webkit-details-marker {
     display: none;
   }
 
+  /* Refuerzo para Firefox (pseudo-elemento ::marker) */
   .faq__question::marker {
     display: none;
     content: '';
@@ -110,6 +126,7 @@ const faqs = [
     color: var(--color-white);
   }
 
+  /* Icono "+": círculo con fondo naranja suave */
   .faq__icon {
     display: flex;
     align-items: center;
@@ -123,12 +140,14 @@ const faqs = [
     transition: all var(--transition-base);
   }
 
+  /* Al abrir: el "+" se rellena de naranja y gira 45° para convertirse en "×" */
   .faq__item[open] .faq__icon {
     background: var(--color-primary);
     color: var(--color-white);
     transform: rotate(45deg);
   }
 
+  /* Respuesta: animación de entrada fadeInUp al abrirse el acordeón */
   .faq__answer {
     padding: 0 var(--space-xl) var(--space-xl);
     animation: fadeInUp 0.3s ease-out;
@@ -140,7 +159,7 @@ const faqs = [
     line-height: 1.8;
   }
 
-  /* Responsive */
+  /* Responsivo */
   @media (max-width: 768px) {
     .faq__question {
       padding: var(--space-lg);

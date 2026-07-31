@@ -1,4 +1,9 @@
 ---
+// Arreglo de 4 pasos del proceso. Cada objeto tiene:
+// - number: número del paso (string '01'...'04')
+// - title: título del paso
+// - description: descripción del paso
+// - icon: el SVG como string (se inserta con Fragment set:html)
 const steps = [
   {
     number: '01',
@@ -9,7 +14,7 @@ const steps = [
   {
     number: '02',
     title: 'Preparación',
-    description: 'Preparamos la dosis óptima de Vitamina C según tus necesidades individuales en un ambiente cómodo y estéril.',
+    description: 'Preparamos la dosis óptima de Vitamina C según tus necesidades individuales en un ambiente cómodo.',
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>`,
   },
   {
@@ -38,22 +43,28 @@ const steps = [
       <p>Un proceso simple, seguro y supervisado por profesionales de la salud</p>
     </div>
 
+    <!-- Timeline alternado: los pasos con índice PAR (0,2) van a la izquierda y los
+         IMPARES (1,3) a la derecha gracias a la clase process__step--reverse -->
     <div class="process__timeline">
       {steps.map((step, index) => (
         <div class={`process__step reveal ${index % 2 !== 0 ? 'process__step--reverse' : ''}`}>
+          <!-- Contenido del paso: número, título y descripción -->
           <div class="process__step-content">
             <span class="process__step-number">{step.number}</span>
             <h3 class="process__step-title">{step.title}</h3>
             <p class="process__step-description">{step.description}</p>
           </div>
 
+          <!-- Conector central: punto con icono + línea vertical que une con el siguiente paso -->
           <div class="process__step-connector">
             <div class="process__step-dot">
               <Fragment set:html={step.icon} />
             </div>
+            <!-- La línea solo se dibuja si no es el último paso -->
             {index < steps.length - 1 && <div class="process__step-line"></div>}
           </div>
 
+          <!-- Espacio vacío que equilibra el grid y permite el diseño alternado -->
           <div class="process__step-spacer"></div>
         </div>
       ))}
@@ -68,6 +79,8 @@ const steps = [
     position: relative;
   }
 
+  /* Grid de 3 columnas (contenido | conector | espacio) que permite alternar los pasos:
+     en los pares el contenido queda a la izquierda; en los impares (--reverse) se invierte */
   .process__step {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -76,6 +89,7 @@ const steps = [
     margin-bottom: var(--space-xl);
   }
 
+  /* Paso alternado: el contenido pasa a la columna derecha y el espacio a la izquierda */
   .process__step--reverse .process__step-content {
     order: 3;
     text-align: left;
@@ -85,6 +99,7 @@ const steps = [
     order: 1;
   }
 
+  /* Tarjeta del paso: fondo gris claro, borde y hover con elevación */
   .process__step-content {
     text-align: right;
     padding: var(--space-xl);
@@ -125,7 +140,8 @@ const steps = [
     line-height: 1.7;
   }
 
-  /* Connector */
+  /* Conector */
+  /* Columna central del grid, siempre en la posición 2 */
   .process__step-connector {
     display: flex;
     flex-direction: column;
@@ -133,6 +149,7 @@ const steps = [
     order: 2;
   }
 
+  /* Punto circular con degradado y brillo que contiene el icono del paso */
   .process__step-dot {
     width: 56px;
     height: 56px;
@@ -147,6 +164,7 @@ const steps = [
     z-index: 1;
   }
 
+  /* Línea vertical que conecta el punto actual con el siguiente paso */
   .process__step-line {
     width: 2px;
     height: 80px;
@@ -155,10 +173,11 @@ const steps = [
   }
 
   .process__step-spacer {
-    /* Empty space for alternating layout */
+    /* Espacio vacío para el diseño alternado */
   }
 
-  /* Responsive */
+  /* Responsivo */
+  /* En móviles el timeline se vuelve vertical simple: icono a la izquierda y texto a la derecha */
   @media (max-width: 768px) {
     .process__step {
       grid-template-columns: auto 1fr;

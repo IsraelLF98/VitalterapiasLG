@@ -1,4 +1,8 @@
 ---
+// FRONTMATTER: aquí se importan todos los componentes que forman la página de inicio.
+// Layout es el "marco" común (head, meta tags, estilos), y el resto son las
+// secciones de la página. El orden de los imports no importa: el orden en el que
+// aparecen dentro de <Layout> (más abajo) es el orden en que se muestran en la página.
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
@@ -12,17 +16,29 @@ import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 ---
 
+<!-- Todo lo que esté dentro de <Layout> se inserta en el <slot /> del layout.
+     El orden aquí define el orden visual de la página: -->
 <Layout>
+  <!-- Navbar: barra de navegación superior con el menú y el logo -->
   <Navbar />
   <main>
+    <!-- Hero: sección de inicio, primera impresión con el título principal y llamada a la acción -->
     <Hero />
+    <!-- About: qué es la terapia de Vitamina C y quiénes son (presentación de la clínica) -->
     <About />
+    <!-- Benefits: beneficios de la terapia, los resultados que puede aportar al paciente -->
     <Benefits />
+    <!-- Process: el paso a paso de cómo funciona el tratamiento -->
     <Process />
+    <!-- Testimonials: opiniones de pacientes -->
     <Testimonials />
+    <!-- FAQ: preguntas frecuentes -->
     <FAQ />
+    <!-- Contact: formulario o datos de contacto y ubicación -->
     <Contact />
   </main>
+  <!-- Footer: pie de página con información legal, enlaces y redes sociales -->
   <Footer />
+  <!-- WhatsAppButton: botón flotante de WhatsApp para contacto directo desde cualquier punto de la página -->
   <WhatsAppButton />
 </Layout>

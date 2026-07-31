@@ -1,258 +1,292 @@
 /* ============================================
-   VitalTerapias LG — Design System
+   VitalTerapias LG — Sistema de diseño
    ============================================ */
+/*
+   Hoja de estilos GLOBAL de la web. Aquí se define el "sistema de diseño":
+   las variables CSS (colores, tipografías, espaciados, etc.), los estilos
+   base, las clases reutilizables (.btn, .section, .container, .glass...) y
+   las animaciones. Se aplica a toda la web porque se importa en el layout
+   (src/layouts/Layout.astro) desde la cabecera <head>.
+*/
 
-/* ---------- Google Fonts ---------- */
+/* ---------- Fuentes de Google ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
-/* ---------- CSS Custom Properties ---------- */
+/* ---------- Variables CSS ---------- */
+/*
+   :root es el selector del elemento <html> y se usa para definir variables
+   CSS (--nombre: valor). Son "valores con nombre" que se reutilizan en todo
+   el proyecto con var(--nombre). Si quieres cambiar el color de la marca,
+   solo editas la variable aquí y se actualiza en TODA la web.
+*/
 :root {
-  /* Primary palette — warm amber/gold */
-  --color-primary: #f59e0b;
-  --color-primary-light: #fbbf24;
-  --color-primary-dark: #d97706;
-  --color-primary-glow: rgba(245, 158, 11, 0.35);
+  /* Paleta principal — ámbar/dorado cálido */
+  --color-primary: #f59e0b;        /* Color principal de la marca (ámbar), usado en botones y detalles */
+  --color-primary-light: #fbbf24;  /* Variante más clara del ámbar, para fondos suaves o estados hover */
+  --color-primary-dark: #d97706;   /* Variante más oscura, para texto sobre ámbar (mejor contraste) */
+  --color-primary-glow: rgba(245, 158, 11, 0.35); /* Resplandor ámbar transparente, usado en sombras brillantes */
 
-  /* Accent — rich orange */
-  --color-accent: #f97316;
-  --color-accent-light: #fb923c;
+  /* Acento — naranja intenso */
+  --color-accent: #f97316;         /* Color de acento naranja, complementa al ámbar en degradados */
+  --color-accent-light: #fb923c;   /* Naranja más claro para estados hover del acento */
 
-  /* Neutrals */
-  --color-white: #ffffff;
-  --color-off-white: #fefce8;
-  --color-cream: #fffbeb;
-  --color-gray-50: #fafaf9;
-  --color-gray-100: #f5f5f4;
-  --color-gray-200: #e7e5e4;
-  --color-gray-300: #d6d3d1;
-  --color-gray-400: #a8a29e;
-  --color-gray-500: #78716c;
-  --color-gray-600: #57534e;
-  --color-gray-700: #44403c;
-  --color-gray-800: #292524;
-  --color-gray-900: #1c1917;
-  --color-dark: #0f0d0a;
+  /* Tonos neutros */
+  --color-white: #ffffff;          /* Blanco puro, fondo general */
+  --color-off-white: #fefce8;      /* Blanco cálido con tinte amarillento, para fondos alternos */
+  --color-cream: #fffbeb;          /* Crema claro: fondo de secciones alternas (.section-cream) */
+  --color-gray-50: #fafaf9;        /* Gris casi blanco */
+  --color-gray-100: #f5f5f4;       /* Gris muy claro, texto en secciones oscuras */
+  --color-gray-200: #e7e5e4;       /* Gris claro, bordes y separadores sutiles */
+  --color-gray-300: #d6d3d1;       /* Gris medio claro, bordes más visibles */
+  --color-gray-400: #a8a29e;       /* Gris medio, texto secundario sobre fondos oscuros */
+  --color-gray-500: #78716c;       /* Gris medio, texto secundario sobre fondos claros */
+  --color-gray-600: #57534e;       /* Gris medio oscuro */
+  --color-gray-700: #44403c;       /* Gris oscuro, hover de botones oscuros */
+  --color-gray-800: #292524;       /* Texto corporal principal sobre fondo claro */
+  --color-gray-900: #1c1917;       /* Casi negro, fondo de secciones oscuras y títulos */
+  --color-dark: #0f0d0a;           /* Negro cálido profundo, para fondos extra oscuros */
 
-  /* Semantic */
-  --color-success: #22c55e;
-  --color-whatsapp: #25d366;
+  /* Colores semánticos */
+  --color-success: #22c55e;        /* Verde de éxito (estado correcto, confirmaciones) */
+  --color-whatsapp: #25d366;       /* Verde oficial de WhatsApp, para el botón de contacto */
 
-  /* Typography */
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Tipografía */
+  --font-heading: 'Outfit', sans-serif; /* Fuente de títulos (Outfit, geométrica y moderna) */
+  --font-body: 'Inter', sans-serif;     /* Fuente del texto corporal (Inter, muy legible) */
 
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --space-4xl: 6rem;
-  --space-5xl: 8rem;
+  /* Espaciados: escala gradual de espacios para mantener ritmo visual constante */
+  --space-xs: 0.25rem;   /* Espacio extra pequeño (4px): gaps y padding de insignias */
+  --space-sm: 0.5rem;    /* Espacio pequeño: gap entre icono y texto del botón */
+  --space-md: 1rem;      /* Espacio mediano: márgenes entre bloques de texto */
+  --space-lg: 1.5rem;    /* Espacio grande: separación entre párrafos o del badge al título */
+  --space-xl: 2rem;      /* Espacio extra grande: padding lateral del .container */
+  --space-2xl: 3rem;     /* Doble extra grande: padding vertical de secciones en móvil */
+  --space-3xl: 4rem;     /* Triple extra grande: margen bajo el encabezado de sección */
+  --space-4xl: 6rem;     /* Cuádruple extra grande: padding vertical en tablets */
+  --space-5xl: 8rem;     /* Padding vertical estándar de las secciones en escritorio */
 
-  /* Border Radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  --radius-full: 9999px;
+  /* Bordes redondeados */
+  --radius-sm: 0.5rem;   /* Esquinas ligeramente redondeadas */
+  --radius-md: 0.75rem;  /* Redondeo mediano */
+  --radius-lg: 1rem;     /* Redondeo grande para tarjetas */
+  --radius-xl: 1.5rem;   /* Redondeo extra grande para contenedores amplios */
+  --radius-2xl: 2rem;    /* Redondeo aún mayor */
+  --radius-full: 9999px; /* Píldora completa: hace el elemento 100% circular u ovalado */
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.15);
-  --shadow-glow: 0 0 30px var(--color-primary-glow);
+  /* Sombras: capas de profundidad, de sutil a intensa */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);   /* Sombra ligera, para tarjetas pequeñas */
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);  /* Sombra media, eleva tarjetas del fondo */
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);  /* Sombra grande, para elementos destacados */
+  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.15); /* Sombra extra grande, modales o hero */
+  --shadow-glow: 0 0 30px var(--color-primary-glow); /* Resplandor ámbar: botones primarios con brillo */
 
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 300ms ease;
-  --transition-slow: 500ms ease;
-  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Transiciones: duración y curva que se usan en hover de botones, reveal, etc. */
+  --transition-fast: 150ms ease; /* Transición rápida, micro-interacciones */
+  --transition-base: 300ms ease; /* Transición estándar de botones y tarjetas */
+  --transition-slow: 500ms ease; /* Transición lenta, movimientos amplios */
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto "resorte": rebota al final, se usa en hover juguetones */
 
-  /* Layout */
-  --max-width: 1200px;
-  --nav-height: 72px;
+  /* Diseño */
+  --max-width: 1200px;  /* Ancho máximo del contenido centrado (.container) en escritorio */
+  --nav-height: 72px;   /* Alto de la barra de navegación; se usa para compensar el scroll */
 }
 
-/* ---------- Reset & Base ---------- */
+/* ---------- Reset y estilos base ---------- */
+/*
+   RESET: los navegadores aplican márgenes y paddings por defecto a ciertos
+   elementos. Este bloque los elimina para partir de una base predecible y
+   que el diseño se vea igual en todos los navegadores.
+*/
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
+  /* box-sizing: border-box hace que el padding y el borde se incluyan
+     dentro del ancho/alto declarado, evitando cálculos inesperados */
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-height);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;   /* El scroll al navegar por anclas (#seccion) es suave */
+  scroll-padding-top: var(--nav-height); /* Compensa el alto del navbar al anclar, para que el título no quede oculto */
+  -webkit-font-smoothing: antialiased;   /* Afina el texto en navegadores basados en WebKit (macOS) */
+  -moz-osx-font-smoothing: grayscale;    /* Afina el texto en Firefox de macOS */
 }
 
 body {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--color-gray-800);
+  font-family: var(--font-body);   /* Texto corporal con Inter */
+  font-size: 1rem;                 /* Tamaño base de fuente (16px), los rem se calculan sobre él */
+  line-height: 1.7;                /* Interlineado cómodo para leer párrafos largos */
+  color: var(--color-gray-800);    /* Color de texto por defecto */
   background-color: var(--color-white);
-  overflow-x: hidden;
+  overflow-x: hidden;              /* Evita scroll horizontal si algún elemento sobresale en móvil */
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  max-width: 100%;  /* Las imágenes nunca se desbordan de su contenedor */
+  height: auto;     /* Mantienen su proporción al encogerse */
+  display: block;   /* Elimina el pequeño hueco que los navegadores ponen bajo las imágenes inline */
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: inherit;         /* Los enlaces heredan el color del texto que los rodea */
+  text-decoration: none;  /* Sin subrayado; el estilo de enlace lo define cada componente */
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
+  font-family: inherit; /* Hereda la fuente del documento (los botones no usan la del sistema por defecto) */
+  cursor: pointer;      /* Cursor de "mano" para indicar que es clicable */
+  border: none;         /* Sin borde por defecto; cada variante de botón define el suyo */
+  background: none;     /* Sin fondo por defecto */
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
-  color: var(--color-gray-900);
+  font-family: var(--font-heading); /* Todos los títulos usan Outfit */
+  line-height: 1.2;                 /* Interlineado compacto típico de títulos */
+  color: var(--color-gray-900);     /* Títulos casi negros para máximo contraste */
 }
 
-/* ---------- Container ---------- */
+/* ---------- Contenedor ---------- */
+/* Contenedor estándar de la web: centra el contenido y limita su ancho máximo */
 .container {
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-xl);
+  max-width: var(--max-width); /* 1200px máximo en escritorio */
+  margin: 0 auto;              /* "auto" en ambos lados lo centra horizontalmente */
+  padding: 0 var(--space-xl);  /* Respira espacio a los lados para que el texto no toque los bordes */
 }
 
-/* ---------- Section ---------- */
+/* ---------- Secciones ---------- */
+/* Cada bloque de la página (Inicio, Servicios, Beneficios...) se marca con .section */
 .section {
-  padding: var(--space-5xl) 0;
+  padding: var(--space-5xl) 0; /* Espacio vertical amplio arriba y abajo para separar bloques */
 }
 
+/* Sección de fondo oscuro, usada por ejemplo en testimonios o CTA final */
 .section-dark {
   background-color: var(--color-gray-900);
-  color: var(--color-gray-100);
+  color: var(--color-gray-100); /* Texto claro para que sea legible sobre el fondo oscuro */
 }
 
+/* En secciones oscuras los títulos deben ser blancos para mantener el contraste */
 .section-dark h2,
 .section-dark h3,
 .section-dark h4 {
   color: var(--color-white);
 }
 
+/* Sección de fondo crema, alterna visualmente con las secciones blancas */
 .section-cream {
   background-color: var(--color-cream);
 }
 
+/* Encabezado de sección: título centrado + párrafo descriptivo debajo */
 .section-header {
   text-align: center;
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-3xl); /* Separa el encabezado del contenido siguiente */
 }
 
 .section-header h2 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 3rem); /* Tamaño fluido: mínimo 2rem, máximo 3rem, escala con el ancho de pantalla */
   font-weight: 800;
   margin-bottom: var(--space-md);
 }
 
 .section-header p {
   font-size: 1.15rem;
-  color: var(--color-gray-500);
-  max-width: 600px;
-  margin: 0 auto;
+  color: var(--color-gray-500); /* Texto descriptivo en gris para jerarquía visual */
+  max-width: 600px;             /* Limita el ancho de línea para una lectura cómoda */
+  margin: 0 auto;               /* Centra el párrafo bajo el título */
 }
 
 .section-dark .section-header p {
-  color: var(--color-gray-400);
+  color: var(--color-gray-400); /* Sobre fondo oscuro, el descriptivo se aclara un tono */
 }
 
+/* Insignia (pill) que etiqueta cada sección: "Terapia", "Beneficios", etc. */
 .section-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
+  display: inline-flex;      /* Se alinea como píldora con su contenido (icono + texto) */
+  align-items: center;       /* Icono y texto centrados verticalmente */
+  gap: var(--space-sm);      /* Espacio entre icono y texto */
   padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full); /* Forma de píldora ovalada */
   font-size: 0.85rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-lg);
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1));
+  text-transform: uppercase; /* Texto en mayúsculas para estilo de etiqueta */
+  letter-spacing: 0.05em;    /* Espaciado entre letras para un look más refinado */
+  margin-bottom: var(--space-lg); /* Separa la insignia del título de la sección */
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1)); /* Fondo ámbar muy tenue */
   color: var(--color-primary-dark);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.2); /* Borde sutil del mismo tono */
 }
 
+/* Variante de insignia para secciones oscuras: mismo estilo, tonos adaptados al fondo */
 .section-dark .section-badge {
   background: rgba(245, 158, 11, 0.15);
   color: var(--color-primary-light);
   border-color: rgba(245, 158, 11, 0.25);
 }
 
-/* ---------- Glassmorphism ---------- */
+/* ---------- Efecto vidrio (glassmorphism) ---------- */
+/* Panel "de vidrio" para uso sobre imágenes o fondos oscuros (ej: navbar, tarjetas del hero) */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);          /* Blanco casi transparente */
+  backdrop-filter: blur(16px);                    /* Desenfoca lo que hay detrás (efecto esmerilado) */
+  -webkit-backdrop-filter: blur(16px);            /* Prefijo para que funcione en Safari/Chrome antiguos */
+  border: 1px solid rgba(255, 255, 255, 0.12);    /* Borde blanco sutil que imita el canto del vidrio */
 }
 
+/* Variante más clara y legible, para usar sobre fondos claros */
 .glass-light {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.65); /* Fondo blanco más opaco para que el texto se lea bien */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- Botones ---------- */
+/* Clase base de todos los botones; las variantes (.btn-primary, etc.) solo cambian colores */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
+  display: inline-flex;   /* El botón se ajusta al tamaño de su contenido */
+  align-items: center;    /* Centra icono y texto verticalmente */
+  gap: var(--space-sm);   /* Espacio entre el icono y el texto del botón */
   padding: 0.9rem 2rem;
-  border-radius: var(--radius-full);
-  font-family: var(--font-heading);
+  border-radius: var(--radius-full); /* Forma de píldora característica de la marca */
+  font-family: var(--font-heading);  /* Los botones usan la fuente de títulos para destacar */
   font-weight: 600;
   font-size: 1rem;
-  transition: all var(--transition-base);
-  position: relative;
-  overflow: hidden;
+  transition: all var(--transition-base); /* Suaviza el cambio de colores/sombra al pasar el mouse */
+  position: relative; /* Necesario para posicionar el brillo de .btn::before dentro del botón */
+  overflow: hidden;   /* Recorta ese brillo para que no sobresalga del borde redondeado */
 }
 
+/* Capa de brillo degradado que cubre el botón; está invisible por defecto */
 .btn::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
-  opacity: 0;
+  inset: 0;               /* Estira la capa a todo el botón */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent); /* Reflejo diagonal */
+  opacity: 0;             /* Oculto inicialmente */
   transition: opacity var(--transition-base);
 }
 
 .btn:hover::before {
-  opacity: 1;
+  opacity: 1; /* Al pasar el mouse aparece el brillo (efecto "shine") */
 }
 
+/* Botón principal: degradado ámbar→naranja, se usa para las llamadas a la acción */
 .btn-primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   color: var(--color-white);
-  box-shadow: 0 4px 20px var(--color-primary-glow);
+  box-shadow: 0 4px 20px var(--color-primary-glow); /* Resplandor ámbar alrededor */
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px var(--color-primary-glow);
+  transform: translateY(-3px); /* Se eleva 3px al pasar el mouse, da sensación de "flotar" */
+  box-shadow: 0 8px 30px var(--color-primary-glow); /* Sombra mayor al elevarse */
 }
 
+/* Botón secundario: borde blanco transparente, para fondos oscuros */
 .btn-secondary {
   background: transparent;
   color: var(--color-white);
@@ -260,23 +294,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);  /* Relleno sutil al pasar el mouse */
+  border-color: rgba(255, 255, 255, 0.5); /* El borde se vuelve más visible */
   transform: translateY(-3px);
 }
 
+/* Botón de WhatsApp: verde oficial de la app, para el contacto directo */
 .btn-whatsapp {
   background: var(--color-whatsapp);
   color: var(--color-white);
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3); /* Resplandor verde */
 }
 
 .btn-whatsapp:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
-  filter: brightness(1.05);
+  filter: brightness(1.05); /* Aclara ligeramente el verde al hover */
 }
 
+/* Botón oscuro: para sobre fondos claros cuando se prefiere sobriedad */
 .btn-dark {
   background: var(--color-gray-800);
   color: var(--color-white);
@@ -284,12 +320,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-dark:hover {
-  background: var(--color-gray-700);
+  background: var(--color-gray-700); /* Se aclara un tono al pasar el mouse */
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* ---------- Animations ---------- */
+/* ---------- Animaciones ---------- */
+/* Los @keyframes definen los "fotogramas" de una animación: qué valores
+   tiene el elemento al inicio (from) y al final (to). Luego se aplican con
+   la propiedad animation, normalmente desde las clases en los .astro */
+
+/* Entrada desde abajo: el elemento aparece subiendo. Se usa en el hero y en scroll reveal */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -301,6 +342,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Entrada desde la izquierda: aparece deslizándose hacia la derecha */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -312,6 +354,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Entrada desde la derecha: aparece deslizándose hacia la izquierda */
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -323,6 +366,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Flotación continua: el elemento sube y baja suavemente, como si levitara.
+   Se usa en elementos decorativos del hero (ej: una gota o cápsula flotante) */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -332,6 +377,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Anillo que se expande y desaparece, tipo "onda de radar". Se usa para
+   animar un punto pulsante de "en línea" o llamadas a la acción */
 @keyframes pulse-ring {
   0% {
     transform: scale(0.8);
@@ -343,6 +390,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Brillo que recorre el texto: mueve un degradado de izquierda a derecha.
+   Se usa en títulos con efecto metalizado o esqueletos de carga */
 @keyframes shimmer {
   0% {
     background-position: -200% center;
@@ -352,6 +401,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Rotación lenta y constante de 360°. Se usa en iconos circulares o
+   adornos giratorios (ej: un anillo decorativo alrededor de una imagen) */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -361,6 +412,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Resplandor que "respira": la sombra ámbar se intensifica y se atenúa.
+   Se usa para dar vida a elementos destacados como logos o tarjetas hero */
 @keyframes glow-pulse {
   0%, 100% {
     box-shadow: 0 0 20px var(--color-primary-glow);
@@ -370,11 +423,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* ---------- Scroll Reveal ---------- */
+/* ---------- Aparición de elementos al hacer scroll ---------- */
+/*
+   PATRÓN SCROLL REVEAL: los elementos con .reveal (o variantes) empiezan
+   OCULTOS (opacity: 0 y desplazados). Un pequeño script en el layout
+   (ScrollReveal o similar) detecta cuando entran en pantalla con un
+   IntersectionObserver y les añade la clase .visible, que los muestra con
+   una transición suave (líneas .reveal.visible).
+*/
+
+/* Aparición estándar: sube desde abajo */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Curva que frena suavemente al final (efecto elegante) */
 }
 
 .reveal.visible {
@@ -382,6 +444,7 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
+/* Variante: aparece deslizándose desde la izquierda (para imágenes o tarjetas) */
 .reveal-left {
   opacity: 0;
   transform: translateX(-40px);
@@ -393,6 +456,7 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(0);
 }
 
+/* Variante: aparece deslizándose desde la derecha */
 .reveal-right {
   opacity: 0;
   transform: translateX(40px);
@@ -404,16 +468,21 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(0);
 }
 
-/* Stagger children */
+/* Escalonado de los hijos */
+/*
+   Para listas o cuadrículas: en lugar de animar el contenedor completo,
+   cada hijo (tarjeta, item) aparece uno tras otro con un pequeño retraso
+   (0.1s, 0.2s, 0.3s...), creando un efecto de cascada elegante.
+*/
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
-.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
-.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; } /* 1er hijo: espera 0.1s */
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; } /* 2º hijo: espera 0.2s */
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; } /* ...y así sucesivamente */
 .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
 .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
 .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
@@ -423,15 +492,25 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
-/* ---------- Gradient Text ---------- */
+/* ---------- Texto con degradado ---------- */
+/* Convierte el texto en un degradado ámbar→naranja: el color de fondo se
+   "recorta" con la forma de las letras y el relleno se vuelve transparente */
 .gradient-text {
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  -webkit-background-clip: text;      /* Recorta el fondo con la silueta del texto (WebKit) */
+  -webkit-text-fill-color: transparent; /* Hace transparente el color de la letra para ver el degradado */
+  background-clip: text;              /* Versión estándar de background-clip */
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsivo ---------- */
+/*
+   Media queries: el diseño se adapta al tamaño de pantalla. En pantallas
+   más pequeñas se REDUCE el padding lateral del .container (para aprovechar
+   mejor el poco ancho disponible) y el padding vertical de las secciones
+   (para que la página no se sienta demasiado larga en móvil).
+*/
+
+/* Tablets y pantallas medianas (≤1024px): se reduce el espaciado */
 @media (max-width: 1024px) {
   .container {
     padding: 0 var(--space-lg);
@@ -441,6 +520,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Móviles grandes (≤768px): espaciados aún menores y título más pequeño */
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--space-md);
@@ -449,10 +529,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: var(--space-3xl) 0;
   }
   .section-header h2 {
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    font-size: clamp(1.75rem, 6vw, 2.5rem); /* Título de sección se encoge para caber en pantallas chicas */
   }
 }
 
+/* Móviles pequeños (≤480px): mínimo de espacio vertical para no malgastar alto de pantalla */
 @media (max-width: 480px) {
   .section {
     padding: var(--space-2xl) 0;

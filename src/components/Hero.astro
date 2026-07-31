@@ -2,8 +2,11 @@
 
 ---
 
+<!-- Sección principal de bienvenida: ocupa toda la pantalla (min-height: 100vh)
+     y es el destino del ancla #inicio del menú. -->
 <section id="inicio" class="hero">
-  <!-- Decorative elements -->
+  <!-- Elementos decorativos de fondo: orbes de colores difuminados (con blur
+       en CSS) que flotan detrás del contenido y una cuadrícula muy sutil. -->
   <div class="hero__bg">
     <div class="hero__orb hero__orb--1"></div>
     <div class="hero__orb hero__orb--2"></div>
@@ -13,11 +16,16 @@
 
   <div class="hero__container container">
     <div class="hero__content">
+      <!-- Columna izquierda: el texto de bienvenida. -->
       <div class="hero__text">
+        <!-- Insignia superior con puntito animado (glow-pulse) que resalta
+             la certificación de la terapia. -->
         <span class="hero__badge">
           <span class="hero__badge-dot"></span>
           Terapia Profesional Certificada
         </span>
+        <!-- Título principal: "Vitamina C" en blanco y "Intravenosa"
+             con degradado (clase global gradient-text). -->
         <h1 class="hero__title">
           Vitamina C<br/>
           <span class="gradient-text">Intravenosa</span>
@@ -25,6 +33,8 @@
         <p class="hero__subtitle">
           Fortalece tu sistema inmunológico, combate la fatiga y revitaliza tu organismo con nuestra terapia de alta concentración de Vitamina C administrada por profesionales.
         </p>
+        <!-- Botones de acción: "Agendar Cita" abre WhatsApp y
+             "Conocer más" es un ancla que baja a la sección #nosotros. -->
         <div class="hero__actions">
           <a
             href="https://wa.me/593997705273?text=Hola,%20deseo%20agendar%20una%20cita%20para%20la%20Terapia%20de%20Vitamina%20C"
@@ -40,6 +50,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
+        <!-- Estadísticas clave: valor destacado + etiqueta, separadas
+             por pequeñas líneas divisorias verticales. -->
         <div class="hero__stats">
           <div class="hero__stat">
             <span class="hero__stat-value">100%</span>
@@ -58,8 +70,11 @@
         </div>
       </div>
 
+      <!-- Columna derecha: la imagen de la terapia con un resplandor
+           animado detrás y una insignia flotante de certificación. -->
       <div class="hero__visual">
         <div class="hero__image-wrapper">
+          <!-- Halo de luz que pulsa detrás de la imagen (z-index 0). -->
           <div class="hero__image-glow"></div>
           <img
             src="/img/imagen.jpg"
@@ -67,6 +82,8 @@
             class="hero__image"
             loading="eager"
           />
+          <!-- Badge flotante "Profesionales Certificados" superpuesto
+               sobre la parte inferior de la imagen (clase glass). -->
           <div class="hero__image-badge glass">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             <span>Profesionales Certificados</span>
@@ -76,13 +93,16 @@
     </div>
   </div>
 
-  <!-- Scroll indicator -->
+  <!-- Indicador de scroll: línea animada al pie del hero que invita
+       a bajar a la siguiente sección. -->
   <div class="hero__scroll">
     <div class="hero__scroll-line"></div>
   </div>
 </section>
 
 <style>
+  /* Sección hero: fondo oscuro, ocupa al menos toda la pantalla
+     (100vh) y centra su contenido verticalmente. */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -93,7 +113,8 @@
     padding-top: var(--nav-height);
   }
 
-  /* Background decorations */
+  /* Decoraciones de fondo: capa absoluta detrás de todo (z-index 0)
+       que contiene los orbes y la cuadrícula. */
   .hero__bg {
     position: absolute;
     inset: 0;
@@ -101,6 +122,9 @@
     z-index: 0;
   }
 
+  /* Orbes: círculos con blur de 80px que simulan manchas de luz.
+     Cada variante (--1, --2, --3) tiene tamaño, posición y duración
+     de animación diferentes para dar profundidad. */
   .hero__orb {
     position: absolute;
     border-radius: 50%;
@@ -135,6 +159,8 @@
     animation: float 12s ease-in-out infinite;
   }
 
+  /* Cuadrícula decorativa: líneas horizontales y verticales muy tenues
+     (2% de opacidad) separadas 60px que dan textura de rejilla al fondo. */
   .hero__grid-overlay {
     position: absolute;
     inset: 0;
@@ -150,6 +176,8 @@
     width: 100%;
   }
 
+  /* Distribución en 2 columnas: texto a la izquierda, imagen a la derecha.
+     gap amplio para respirar entre ambas. */
   .hero__content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -158,11 +186,13 @@
     padding: var(--space-3xl) 0;
   }
 
-  /* Text side */
+  /* Lado del texto */
   .hero__text {
     animation: fadeInLeft 1s ease-out;
   }
 
+  /* Insignia "Terapia Profesional Certificada": píldora translúcida
+     con borde ámbar; su puntito parpadea con la animación glow-pulse. */
   .hero__badge {
     display: inline-flex;
     align-items: center;
@@ -209,7 +239,8 @@
     flex-wrap: wrap;
   }
 
-  /* Stats */
+  /* Estadísticas: valor grande en color ámbar sobre su etiqueta gris,
+     separadas por líneas divisorias verticales de 1px. */
   .hero__stats {
     display: flex;
     align-items: center;
@@ -240,7 +271,8 @@
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Visual / Image side */
+  /* Lado visual / Imagen: entra desde la derecha (fadeInRight) con un
+     pequeño retraso de 0.3s para que aparezca tras el texto. */
   .hero__visual {
     display: flex;
     justify-content: center;
@@ -253,6 +285,8 @@
     width: 100%;
   }
 
+  /* Resplandor detrás de la imagen: halo de luz ámbar que pulsa
+     lentamente (glow-pulse de 4s). */
   .hero__image-glow {
     position: absolute;
     inset: -20px;
@@ -262,6 +296,8 @@
     animation: glow-pulse 4s ease-in-out infinite;
   }
 
+  /* Imagen principal: flota suavemente (float de 6s) y está por
+     encima del halo gracias al z-index. */
   .hero__image {
     position: relative;
     width: 100%;
@@ -271,6 +307,8 @@
     animation: float 6s ease-in-out infinite;
   }
 
+  /* Badge flotante "Profesionales Certificados": centrado sobre el borde
+     inferior de la imagen, con efecto de cristal esmerilado (blur). */
   .hero__image-badge {
     position: absolute;
     bottom: -16px;
@@ -291,7 +329,8 @@
     color: var(--color-white);
   }
 
-  /* Scroll indicator */
+  /* Indicador de scroll: línea con degradado que se desvanece hacia
+     abajo y flota, sugiriendo que hay más contenido al hacer scroll. */
   .hero__scroll {
     position: absolute;
     bottom: 2rem;
@@ -308,7 +347,9 @@
     animation: float 2s ease-in-out infinite;
   }
 
-  /* Responsive */
+  /* Responsivo */
+  /* Hasta 1024px: las 2 columnas se apilan en 1 y todo el texto
+     se centra; la imagen se reduce para no dominar la pantalla. */
   @media (max-width: 1024px) {
     .hero__content {
       grid-template-columns: 1fr;
@@ -335,6 +376,9 @@
     }
   }
 
+  /* Hasta 768px (móviles): el hero deja de ocupar toda la pantalla,
+     el título se encoge con clamp() y las estadísticas pasan de fila
+     a columna con divisores horizontales. */
   @media (max-width: 768px) {
     .hero {
       min-height: auto;
@@ -361,6 +405,8 @@
     }
   }
 
+  /* Hasta 480px (móviles pequeños): los botones se apilan a ancho
+     completo para que sean fáciles de pulsar con el dedo. */
   @media (max-width: 480px) {
     .hero__actions {
       flex-direction: column;

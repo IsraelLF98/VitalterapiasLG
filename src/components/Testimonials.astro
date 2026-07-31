@@ -1,4 +1,6 @@
 ---
+// Arreglo de testimonios: cada objeto guarda nombre, iniciales (para el avatar),
+// rol, texto del testimonio y calificación (1-5 estrellas).
 const testimonials = [
   {
     name: 'María Fernanda L.',
@@ -43,7 +45,10 @@ const testimonials = [
     </div>
 
     <div class="testimonials__slider" id="testimonials-slider">
+      <!-- Track del carrusel: es la "cinta" que contiene todas las tarjetas
+           y que se desplaza horizontalmente con transform: translateX -->
       <div class="testimonials__track" id="testimonials-track">
+        <!-- .map() recorre el arreglo y genera una tarjeta por cada testimonio -->
         {testimonials.map((testimonial) => (
           <div class="testimonial-card">
             <div class="testimonial-card__header">
@@ -54,6 +59,7 @@ const testimonials = [
                 <h4 class="testimonial-card__name">{testimonial.name}</h4>
                 <span class="testimonial-card__role">{testimonial.role}</span>
               </div>
+              <!-- Genera tantas estrellas como indique testimonial.rating (1 a 5) -->
               <div class="testimonial-card__stars">
                 {Array.from({ length: testimonial.rating }).map(() => (
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="var(--color-primary)" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
@@ -68,11 +74,14 @@ const testimonials = [
         ))}
       </div>
 
+      <!-- Controles del carrusel: botones anterior/siguiente y puntos indicadores.
+           Cada punto (uno por testimonio) lleva data-index con su posición -->
       <div class="testimonials__controls">
         <button class="testimonials__btn" id="prev-btn" aria-label="Anterior">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
         <div class="testimonials__dots" id="testimonials-dots">
+          {/* El punto de índice 0 arranca como activo */}
           {testimonials.map((_, i) => (
             <button class={`testimonials__dot ${i === 0 ? 'active' : ''}`} data-index={i} aria-label={`Ir a testimonio ${i + 1}`}></button>
           ))}
@@ -86,6 +95,7 @@ const testimonials = [
 </section>
 
 <script>
+  // Referencias a los elementos del DOM que manipula el carrusel
   const track = document.getElementById('testimonials-track') as HTMLElement;
   const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
   const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
@@ -95,15 +105,19 @@ const testimonials = [
   let currentIndex = 0;
   let cardsPerView = getCardsPerView();
 
+  // Devuelve cuántas tarjetas se ven a la vez: 2 en escritorio (>=1024px) y 1 en móvil
   function getCardsPerView() {
     if (window.innerWidth >= 1024) return 2;
     return 1;
   }
 
+  // Índice máximo permitido: no se puede avanzar más allá de la última tarjeta visible
   function getMaxIndex() {
     return Math.max(0, (cards?.length || 0) - cardsPerView);
   }
 
+  // Desplaza el track hacia la izquierda (translateX negativo) según currentIndex
+  // y marca el punto activo que corresponde a la posición actual
   function updateSlider() {
     if (!track || !cards?.length) return;
     const card = cards[0] as HTMLElement;
@@ -116,16 +130,19 @@ const testimonials = [
     });
   }
 
+  // Botón anterior: retrocede una posición sin bajar de 0
   prevBtn?.addEventListener('click', () => {
     currentIndex = Math.max(0, currentIndex - 1);
     updateSlider();
   });
 
+  // Botón siguiente: avanza una posición sin superar el índice máximo
   nextBtn?.addEventListener('click', () => {
     currentIndex = Math.min(getMaxIndex(), currentIndex + 1);
     updateSlider();
   });
 
+  // Puntos indicadores: al hacer clic se va directamente al testimonio elegido
   dots.forEach((dot) => {
     dot.addEventListener('click', () => {
       const index = parseInt(dot.getAttribute('data-index') || '0');
@@ -134,13 +151,16 @@ const testimonials = [
     });
   });
 
+  // Al redimensionar la ventana se recalcula cuántas tarjetas caben
+  // y se corrige el índice por si quedó fuera de rango
   window.addEventListener('resize', () => {
     cardsPerView = getCardsPerView();
     currentIndex = Math.min(currentIndex, getMaxIndex());
     updateSlider();
   });
 
-  // Auto-play
+  // Reproducción automática
+  // Cada 5 segundos avanza una posición; al llegar al final vuelve al principio
   let autoPlay = setInterval(() => {
     if (currentIndex >= getMaxIndex()) {
       currentIndex = 0;
@@ -150,7 +170,8 @@ const testimonials = [
     updateSlider();
   }, 5000);
 
-  // Pause on hover
+  // Pausa al pasar el cursor por encima
+  // mouseenter detiene el autoplay; mouseleave lo reinicia (recorre la lógica de avance)
   track?.parentElement?.addEventListener('mouseenter', () => clearInterval(autoPlay));
   track?.parentElement?.addEventListener('mouseleave', () => {
     autoPlay = setInterval(() => {
@@ -168,15 +189,19 @@ const testimonials = [
   .testimonials__slider {
     max-width: 900px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: hidden; /* Oculta las tarjetas que quedan fuera del carrusel */
   }
 
+  /* Track en flex: todas las tarjetas en una fila; la transición anima
+     el desplazamiento suave que aplica el JS con translateX */
   .testimonials__track {
     display: flex;
     gap: var(--space-xl);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Cada tarjeta ocupa el 50% del ancho del track (menos la mitad del gap),
+     así se ven 2 a la vez en escritorio; flex: 0 0 impide que se encojan */
   .testimonial-card {
     flex: 0 0 calc(50% - var(--space-xl) / 2);
     padding: var(--space-2xl);
@@ -200,6 +225,7 @@ const testimonials = [
     flex-wrap: wrap;
   }
 
+  /* Avatar circular con degradado entre el color principal y el de acento */
   .testimonial-card__avatar {
     width: 50px;
     height: 50px;
@@ -231,6 +257,7 @@ const testimonials = [
     color: var(--color-gray-400);
   }
 
+  /* Fila de estrellas: las SVGs se generan desde JS con fill primario */
   .testimonial-card__stars {
     display: flex;
     gap: 2px;
@@ -252,7 +279,7 @@ const testimonials = [
     opacity: 0.7;
   }
 
-  /* Controls */
+  /* Controles */
   .testimonials__controls {
     display: flex;
     align-items: center;
@@ -261,6 +288,7 @@ const testimonials = [
     margin-top: var(--space-2xl);
   }
 
+  /* Botones circulares anterior/siguiente; al pasar el cursor se rellenan de primario */
   .testimonials__btn {
     width: 44px;
     height: 44px;
@@ -285,6 +313,7 @@ const testimonials = [
     gap: var(--space-sm);
   }
 
+  /* Puntos indicadores: el activo se pinta de primario y crece un poco */
   .testimonials__dot {
     width: 10px;
     height: 10px;
@@ -299,7 +328,8 @@ const testimonials = [
     transform: scale(1.3);
   }
 
-  /* Responsive */
+  /* Responsivo */
+  /* En pantallas de hasta 1024px cada tarjeta ocupa el 100% (se ve solo 1) */
   @media (max-width: 1024px) {
     .testimonial-card {
       flex: 0 0 100%;

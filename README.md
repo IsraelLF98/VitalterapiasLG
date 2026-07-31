@@ -1,43 +1,84 @@
-# Astro Starter Kit: Minimal
+# VitalTerapias LG 🍊
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Sitio web oficial de **VitalTerapias LG**, un centro de terapia de **Vitamina C intravenosa** para fortalecer el sistema inmunológico, combatir la fatiga y mejorar la calidad de vida.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> 🇪🇸 Todo el contenido de este proyecto está en **español**.
 
-## 🚀 Project Structure
+## 🚀 Características
 
-Inside of your Astro project, you'll see the following folders and files:
+- 💉 Página única (landing page) con todas las secciones del negocio
+- 🎨 Diseño moderno con degradados ámbar/naranja y efectos de vidrio (glassmorphism)
+- 📱 Totalmente **responsive** (móvil, tablet y escritorio)
+- ✨ Animaciones de aparición al hacer scroll (Scroll Reveal)
+- 💬 Botón flotante de **WhatsApp** con enlaces directos para agendar citas
+- 🗣️ Testimonios de pacientes con carrusel automático
+- ❓ Sección de **preguntas frecuentes** (acordeón)
+- 🔍 Datos estructurados **Schema.org** para Google (rich snippets)
+- 🗺️ Sitemap automático con `@astrojs/sitemap`
+- ⚙️ Integración con **GitHub Pages** y **Netlify**
+
+## 📂 Estructura del proyecto
 
 ```text
 /
+├── .github/workflows/    # Workflow de deploy a GitHub Pages
 ├── public/
+│   └── img/              # Imágenes estáticas del sitio
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/       # Componentes .astro de cada sección
+│   │   ├── Navbar.astro          # Barra de navegación
+│   │   ├── Hero.astro            # Sección principal (inicio)
+│   │   ├── About.astro           # ¿Qué es la terapia?
+│   │   ├── Benefits.astro        # Beneficios
+│   │   ├── Process.astro         # Proceso paso a paso
+│   │   ├── Testimonials.astro    # Testimonios de pacientes
+│   │   ├── FAQ.astro             # Preguntas frecuentes
+│   │   ├── Contact.astro         # Sección de contacto
+│   │   ├── Footer.astro          # Pie de página
+│   │   └── WhatsAppButton.astro  # Botón flotante de WhatsApp
+│   ├── layouts/
+│   │   └── Layout.astro          # Estructura HTML base (head, SEO, meta tags)
+│   ├── pages/
+│   │   └── index.astro           # Página principal
+│   └── styles/
+│       └── global.css            # Estilos globales (variables, botones, animaciones)
+├── astro.config.mjs       # Configuración de Astro
+├── netlify.toml           # Configuración de despliegue en Netlify
+├── package.json           # Dependencias y comandos
+└── tsconfig.json          # Configuración de TypeScript
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🧞 Comandos
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Todos los comandos se ejecutan desde la raíz del proyecto, en una terminal:
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Comando                 | Acción                                                       |
+| :---------------------- | :----------------------------------------------------------- |
+| `npm install`           | Instala las dependencias                                     |
+| `npm run dev`           | Inicia el servidor de desarrollo en `localhost:4321`         |
+| `npm run build`         | Compila el sitio de producción en `./dist/`                  |
+| `npm run preview`       | Previsualiza la compilación localmente, antes de publicar    |
+| `npm run astro ...`     | Ejecuta comandos de la CLI de Astro como `astro add`, `astro check` |
+| `npm run astro -- --help` | Muestra la ayuda de la CLI de Astro                          |
 
-## 🧞 Commands
+## 🌐 Despliegue
 
-All commands are run from the root of the project, from a terminal:
+El proyecto incluye dos opciones de despliegue listas para usar:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- **GitHub Pages**: el workflow `.github/workflows/deploy.yml` publica el sitio automáticamente al hacer `push` a `main` o `master` (actívalo en *Settings → Pages → Source: GitHub Actions*).
+- **Netlify**: el archivo `netlify.toml` ya configura el comando de build (`npm run build`) y la carpeta de publicación (`dist`).
 
-## 👀 Want to learn more?
+## 📝 Personalización rápida
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Número de WhatsApp**: busca `wa.me/593...` en los componentes para cambiar el número de contacto.
+- **Correo y teléfono**: edita la sección de contacto en `src/components/Contact.astro` y `Footer.astro`.
+- **Testimonios**: edita el arreglo `testimonials` en `src/components/Testimonials.astro`.
+- **Preguntas frecuentes**: edita el arreglo `faqs` en `src/components/FAQ.astro`.
+
+## 🤝 Contribuir
+
+¿Encontraste un error o quieres mejorar el sitio? Siéntete libre de abrir un *issue* o enviar un *pull request*. Toda ayuda es bienvenida.
+
+## 📄 Licencia
+
+© VitalTerapias LG — Todos los derechos reservados.
